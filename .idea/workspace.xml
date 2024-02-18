@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af80f2d7-91cd-4d56-97af-483119c0231f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MyERC20Token.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MyERC20Token.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Animal-Charity.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Animal-Charity.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/contracts/MyERC20Token.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contracts/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contracts/MyERC20Token.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/2_deploy_contracts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/truffle-config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyERC20Token.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +44,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -50,6 +55,11 @@
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Desktop\Animal-Charity\contracts" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -61,6 +71,7 @@
       <workItem from="1705856901996" duration="5000" />
       <workItem from="1705894198724" duration="10000" />
       <workItem from="1707122567728" duration="1260000" />
+      <workItem from="1708185653411" duration="5651000" />
     </task>
     <servers />
   </component>
@@ -77,5 +88,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

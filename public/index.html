@@ -4,20 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Charity Organization</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        button {
+            background-color: #008CBA;
+            color: white;
+            padding: 15px 25px;
+            margin: 10px 0;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005f73;
+        }
+
+        #donationProgress {
+            font-weight: bold;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .donor-info {
+            background: #e7e7e7;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-<h1>Charity Organization</h1>
-<p>Total MET Tokens Raised: <span id="totalTokens"></span></p>
-<p>Goal: 1000 MET</p>
-<p>Donation Progress: <span id="donationProgress"></span></p>
-<button onclick="makeDonation()">Make Donation</button>
+<div class="container">
+    <h1>Charity Organization</h1>
+    <p>Total ETH Tokens Raised: <span id="totalTokens">0</span></p>
+    <p>Goal: 100 ETH</p>
+    <p>Donation Progress: <span id="donationProgress">0%</span></p>
+    <button onclick="makeDonation()">Make Donation</button>
+
+    <div class="donor-info">
+        <p>Donor Last Donation: <span id="lastDonation">0 ETH</span></p>
+        <p>Donor Total Donations: <span id="totalDonations">0 ETH</span></p>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
 <script>
-    const web3 = new Web3('http://localhost:8545'); // Connect to local Ganache node
+    const web3 = new Web3('http://localhost:8545'); // Connect to local Ganache node or change to your network URL
     const contractAbi = [
         {
-            "inputs": [],
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "initialSupply",
+                    "type": "uint256"
+                }
+            ],
             "stateMutability": "nonpayable",
             "type": "constructor"
         },
@@ -27,48 +98,75 @@
                 {
                     "indexed": true,
                     "internalType": "address",
-                    "name": "_owner",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "_spender",
+                    "name": "donor",
                     "type": "address"
                 },
                 {
                     "indexed": false,
                     "internalType": "uint256",
-                    "name": "_value",
+                    "name": "amount",
                     "type": "uint256"
                 }
             ],
-            "name": "Approval",
+            "name": "DonationReceived",
             "type": "event"
         },
         {
+            "anonymous": false,
             "inputs": [
                 {
+                    "indexed": true,
                     "internalType": "address",
-                    "name": "_spender",
+                    "name": "donor",
                     "type": "address"
                 },
                 {
+                    "indexed": false,
                     "internalType": "uint256",
-                    "name": "_value",
+                    "name": "totalDonated",
                     "type": "uint256"
                 }
             ],
-            "name": "approve",
-            "outputs": [
+            "name": "DonorUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
                 {
-                    "internalType": "bool",
-                    "name": "success",
-                    "type": "bool"
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
                 }
             ],
-            "stateMutability": "nonpayable",
-            "type": "function"
+            "name": "FundsWithdrawn",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "oldOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
         },
         {
             "inputs": [
@@ -100,19 +198,19 @@
                 {
                     "indexed": true,
                     "internalType": "address",
-                    "name": "_from",
+                    "name": "from",
                     "type": "address"
                 },
                 {
                     "indexed": true,
                     "internalType": "address",
-                    "name": "_to",
+                    "name": "to",
                     "type": "address"
                 },
                 {
                     "indexed": false,
                     "internalType": "uint256",
-                    "name": "_value",
+                    "name": "value",
                     "type": "uint256"
                 }
             ],
@@ -123,28 +221,12 @@
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "_from",
+                    "name": "newOwner",
                     "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "_to",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "_value",
-                    "type": "uint256"
                 }
             ],
-            "name": "transferFrom",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "success",
-                    "type": "bool"
-                }
-            ],
+            "name": "transferOwnership",
+            "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
         },
@@ -152,25 +234,23 @@
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "_owner",
+                    "name": "_to",
                     "type": "address"
                 },
                 {
-                    "internalType": "address",
-                    "name": "_spender",
-                    "type": "address"
-                }
-            ],
-            "name": "allowance",
-            "outputs": [
-                {
                     "internalType": "uint256",
-                    "name": "remaining",
+                    "name": "_amount",
                     "type": "uint256"
                 }
             ],
-            "stateMutability": "view",
+            "name": "withdrawFunds",
+            "outputs": [],
+            "stateMutability": "nonpayable",
             "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
         },
         {
             "inputs": [
@@ -192,13 +272,29 @@
             "type": "function"
         },
         {
-            "inputs": [],
-            "name": "decimals",
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "donors",
             "outputs": [
                 {
-                    "internalType": "uint8",
-                    "name": "",
-                    "type": "uint8"
+                    "internalType": "uint256",
+                    "name": "totalDonated",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "lastDonationAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "donationCount",
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -206,25 +302,12 @@
         },
         {
             "inputs": [],
-            "name": "name",
+            "name": "totalEthDonated",
             "outputs": [
                 {
-                    "internalType": "string",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "string"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "symbol",
-            "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "",
-                    "type": "string"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -244,30 +327,61 @@
             "type": "function"
         }
     ];
-    const contractAddress = '0x0974998AfcE08E73F096E5792a106b0663b9f2Cf'; // Replace with your deployed contract address
-    const myERC20Token = new web3.eth.Contract(contractAbi, contractAddress);
+    const contractAddress = '0x6db3f445504C4b690c5c82C88274Bbb12Cabe4c2'; // Replace with your deployed contract address
+    const myContract = new web3.eth.Contract(contractAbi, contractAddress);
 
     async function updateBalance() {
-        const address = '0x732FbBcE8344B3AC43a54aDD18d60BAEEBD1a974'; // Replace with your address
-        const balance = await myERC20Token.methods.balanceOf(address).call();
-        document.getElementById('totalTokens').innerText = balance;
+        const totalEthDonatedWei = await myContract.methods.totalEthDonated().call();
+        const totalEthDonated = web3.utils.fromWei(totalEthDonatedWei, 'ether');
 
-        const goal = 1000;
-        const progress = (balance / goal) * 100;
-        document.getElementById('donationProgress').innerText = `${balance}/${goal} MET`;
+        document.getElementById('totalTokens').innerText = `${totalEthDonated} ETH`;
+
+        const goal = 100;
+        const progressPercent = (parseFloat(totalEthDonated) / goal) * 100;
+        document.getElementById('donationProgress').innerText = `${progressPercent.toFixed(2)}%`;
+    }
+
+    async function updateDonorDetails(donorAddress) {
+        const donorInfo = await myContract.methods.donors(donorAddress).call();
+        const lastDonationEth = web3.utils.fromWei(donorInfo.lastDonationAmount, 'ether');
+        const totalDonationsEth = web3.utils.fromWei(donorInfo.totalDonated, 'ether');
+
+        document.getElementById('lastDonation').innerText = `${lastDonationEth} ETH`;
+        document.getElementById('totalDonations').innerText = `${totalDonationsEth} ETH`;
     }
 
     async function makeDonation() {
-        const senderAddress = '0x732FbBcE8344B3AC43a54aDD18d60BAEEBD1a974'; // Replace with your address
-        const receiverAddress = '0x5E47E0776d60D56bb229Dac0c66b6684A81873DC'; // Replace with charity's address
-        const value = 10; // MET tokens to donate
+        const accounts = await web3.eth.getAccounts();
+        const senderAddress = accounts[0];
+        const value = web3.utils.toWei('1', 'ether');
 
-        const result = await myERC20Token.methods.transfer(receiverAddress, value).send({ from: senderAddress });
-        console.log(result);
-        updateBalance();
+        try {
+            const gasEstimate = await web3.eth.estimateGas({
+                from: senderAddress,
+                to: contractAddress,
+                value: value
+            });
+
+            await web3.eth.sendTransaction({
+                from: senderAddress,
+                to: contractAddress,
+                value: value,
+                gas: gasEstimate // Use the estimated gas. You might want to add an extra amount to ensure it's sufficient.
+            });
+            await updateBalance();
+            await updateDonorDetails(senderAddress);
+        } catch (error) {
+            console.error("Donation failed:", error);
+        }
     }
 
-    updateBalance();
+    window.addEventListener('load', async () => {
+        await updateBalance();
+        // Call updateDonorDetails with the actual donor's address if needed
+
+    });
+
+
 </script>
 </body>
 </html>
