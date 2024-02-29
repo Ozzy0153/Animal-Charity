@@ -1,0 +1,216 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, h1, h2, p, ul {
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    line-height: 1.6;
+    color: #333;
+    font-size: 16px;
+}
+
+.container {
+    width: 85%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    background-color: rgba(0, 77, 153, 0.85); /* Semi-transparent blue */
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    height: 60px; /* Thinner header */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+header h1 {
+    margin-left: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+/* Main Content */
+.image-section {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.text-section {
+    /* Remove box-like appearance, keep text settings */
+    padding: 0; /* Adjust padding as needed, remove if you want text without padding */
+    margin: 20px auto; /* Adjust based on layout requirements */
+    /* Removed properties: background-color, box-shadow, border-radius, max-width */
+    position: relative;
+    z-index: 2;
+}
+
+.success-stories {
+    padding: 60px 0;
+    background-color: #e7f3fe; /* Light blue background */
+}
+
+/* Typography */
+h2 {
+    color: #0056b3; /* Brighter blue for headings */
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Updated Footer */
+footer {
+    background-color: #004d99; /* Dark blue background */
+    color: white;
+    text-align: center;
+    padding: 40px 20px; /* Increased padding for better spacing */
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #ffdd00;
+}
+
+.social-links {
+    margin-top: 20px; /* Add space between text and social links */
+}
+
+.social-icon {
+    display: inline-block; /* Align icons in a row */
+    margin: 0 10px; /* Space out the icons */
+    vertical-align: middle; /* Align icons with the text */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container, nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text-section {
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    header {
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+
+    .text-section, .success-stories {
+        padding: 20px;
+    }
+}
+
+.main-header, .main-footer {
+    background-color: #004d99; /* Consistent color scheme */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.main-nav ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-nav ul li {
+    margin: 0 15px;
+}
+
+.main-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main-nav ul li a:hover, .main-nav ul li a.active {
+    color: #ffdd00;
+}
+
+.about-main {
+    padding: 40px 0;
+}
+
+.about-section {
+    background-color: #f0f2f5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.about-section h2, .about-section h3 {
+    color: #0056b3;
+}
+
+.about-section p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .main-nav ul {
+        flex-direction: column;
+    }
+
+    .main-nav ul li {
+        margin: 10px 0;
+    }
+
+    .container {
+        width: 95%;
+    }
+}

@@ -1,0 +1,158 @@
+/* General Resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, h1, h2, p, ul {
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    line-height: 1.6;
+    color: #333;
+    font-size: 16px;
+    padding-top: 100px; /* Adjust based on your fixed header height */
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    background-color: rgba(0, 77, 153, 0.85); /* Semi-transparent blue */
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    height: 60px; /* Thinner header */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+header h1 {
+    margin-left: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.about-main {
+    padding: 10px 0;
+}
+
+.about-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.about-section h2, .about-section h3 {
+    color: #0056b3;
+}
+
+.about-section p {
+    margin-bottom: 2.5px;
+}
+
+/* Footer */
+footer {
+    background-color: #004d99;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #ffdd00;
+}
+
+/* Additional styles for your HTML content */
+.donation-info, .donor-info {
+    background-color: #e7e7e7;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: .5rem;
+}
+
+.input-group input {
+    width: calc(100% - 22px); /* Adjust input width considering padding and border */
+    padding: 10px;
+    margin-bottom: 1rem; /* Space between input and button */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.donate-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.donate-button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    header .container, footer .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    .container {
+        width: 95%;
+    }
+}

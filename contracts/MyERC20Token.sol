@@ -50,14 +50,11 @@ contract MyERC20Token {
         return true;
     }
 
-    // Function to receive Ether donations
     receive() external payable {
         require(msg.value > 0, "Donation must be greater than 0");
 
-        // Update total ETH donated
         totalEthDonated += msg.value;
 
-        // Update donor information
         Donor storage donor = donors[msg.sender];
         donor.totalDonated += msg.value;
         donor.lastDonationAmount = msg.value;

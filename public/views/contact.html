@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Welfare Charity - Contact Us</title>
+    <link rel="stylesheet" href="../css/4.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>Blockchain Animal Welfare Charity</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/help">How to Help</a></li>
+                <li><a href="/animals">Animal Info</a></li>
+                <li><a href="/donation">Make a Donation</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main>
+    <section>
+        <h2>Contact Us</h2>
+        <p>If you have any questions or would like to help, please get in touch with us.</p>
+        <form action="/submit_form_destination" method="post">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" required></textarea><br>
+            <input type="submit" value="Submit">
+            <div id="notification" class="notification"></div>
+        </form>
+    </section>
+</main>
+<footer>
+    <div class="container">
+        <p>© 2024 Blockchain Animal Welfare Charity. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com" class="social-icon">Facebook</a>
+            <a href="https://www.twitter.com" class="social-icon">Twitter</a>
+            <a href="https://www.instagram.com" class="social-icon">Instagram</a>
+            <a href="https://www.linkedin.com" class="social-icon">LinkedIn</a>
+        </div>
+    </div>
+</footer>
+<script src="/js/contact.js"></script>
+</body>
+</html>

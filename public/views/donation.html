@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charity Organization - Donate Now</title>
+  <link rel="stylesheet" href="../css/3.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>Animal Welfare Charity</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/help">How to Help</a></li>
+        <li><a href="/animals">Animal Info</a></li>
+        <li><a href="/donation">Make a Donation</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="about-main">
+  <section class="about-section">
+    <div class="container">
+      <h1>Donate to Our Charity Organization</h1>
+      <p>Help us reach our goal of 100 ETH to support animals in need.</p>
+      <div class="donation-info">
+        <p>Total ETH Raised: <span id="totalTokens">0</span></p>
+        <p>Donation Goal: 100 ETH</p>
+        <p>Donation Progress: <span id="donationProgress">0%</span></p>
+      </div>
+      <div class="input-group">
+        <label for="donationAmount">Enter Donation Amount (ETH):</label>
+        <input type="number" id="donationAmount" class="donation-input" placeholder="Amount in Ether" step="0.01" min="0.01">
+        <button onclick="makeDonation()" class="donate-button">Make Donation</button>
+      </div>
+      <div class="donor-info">
+        <p>Your Last Donation: <span id="lastDonation">0 ETH</span></p>
+        <p>Your Total Donations: <span id="totalDonations">0 ETH</span></p>
+      </div>
+      <p>Thank you for your support! Every contribution helps us provide better care and assistance to animals around the world.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2024 Blockchain Animal Welfare Charity. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://www.facebook.com" class="social-icon">Facebook</a>
+      <a href="https://www.twitter.com" class="social-icon">Twitter</a>
+      <a href="https://www.instagram.com" class="social-icon">Instagram</a>
+      <a href="https://www.linkedin.com" class="social-icon">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
+<script src="/js/script.js"></script>
+</body>
+</html>
