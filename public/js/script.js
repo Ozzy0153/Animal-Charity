@@ -1,4 +1,4 @@
-const web3 = new Web3('http://localhost:8545');
+const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
 const contractAbi = [
     {
         "inputs": [
@@ -270,39 +270,40 @@ async function updateDonorDetails(donorAddress) {
 }
 
 async function makeDonation() {
-    const donationAmountEther = document.getElementById('donationAmount').value;
-    if (!donationAmountEther) {
-        console.error("Donation amount is required.");
-        return;
-    }
-    const accounts = await web3.eth.getAccounts();
-    const senderAddress = accounts[0];
-    const value = web3.utils.toWei(donationAmountEther, 'ether');
+    const amount = document.getElementById('donationAmount').value; // Get the donation amount
+    if (!amount) return; // If no amount is entered, do nothing
 
     try {
-        const gasEstimate = await web3.eth.estimateGas({
-            from: senderAddress,
+        // Request account access if needed
+        const accounts = await web3.eth.requestAccounts(); // Changed from .getAccounts() for modern dApp browsers
+
+        // Trigger MetaMask to confirm the transaction
+        await web3.eth.sendTransaction({
+            from: accounts[0],
             to: contractAddress,
-            value: value
+            value: web3.utils.toWei(amount, 'ether'),
         });
 
-        await web3.eth.sendTransaction({
-            from: senderAddress,
-            to: contractAddress,
-            value: value,
-            gas: gasEstimate
-        });
+        // Update UI: this can be replaced with actual UI update logic
+        alert('Donation successful!');
         await updateBalance();
-        await updateDonorDetails(senderAddress);
-        alert("Donation successful!");
+        await updateDonorDetails(accounts[0]);
     } catch (error) {
-        console.error("Donation failed:", error);
-        alert("Donation failed, please check the console for more information.");
+        console.error("Donation error:", error);
+        alert('There was an error with your donation');
     }
 }
 
+async function loadWeb3() {
+    if (window.ethereum) {
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.request({ method: 'eth_requestAccounts' }); // Modern dApp browsers
+    } else {
+        alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
+    }
+}
 
 window.addEventListener('load', async () => {
-    await updateBalance();
-
+    await loadWeb3();
+    await updateBalance(); // Consider updating donor details based on user input or login
 });
