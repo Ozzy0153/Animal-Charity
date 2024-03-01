@@ -13,6 +13,9 @@ const contractAbi = JSON.parse(fs.readFileSync('MyERC20Token.json', 'utf8')).abi
 const contractAddress = '0x6db3f445504C4b690c5c82C88274Bbb12Cabe4c2';
 const myERC20Token = new web3.eth.Contract(contractAbi, contractAddress);
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const uri = "mongodb+srv://Orazaly0153:OzzyCharity@charity.q6rft95.mongodb.net/?retryWrites=true&w=majority&appName=Charity";
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -33,6 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post('/submit_form_destination', async (req, res) => {
+    console.log(req.body);
     try {
         const feedbackData = req.body;
         const newFeedback = new Feedback(feedbackData);

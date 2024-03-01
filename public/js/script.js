@@ -246,7 +246,7 @@ const contractAbi = [
         "type": "function"
     }
 ];
-const contractAddress = '0x6db3f445504C4b690c5c82C88274Bbb12Cabe4c2';
+const contractAddress = '0x1673dad5b4cd09f3f695361a01b676e369abba6d';
 const myContract = new web3.eth.Contract(contractAbi, contractAddress);
 
 async function updateBalance() {

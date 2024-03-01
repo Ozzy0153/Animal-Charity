@@ -1,15 +1,16 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('form');
     form.onsubmit = function (e) {
         e.preventDefault();
 
+        const formData = Object.fromEntries(new FormData(form).entries());
+
         fetch(form.action, {
             method: 'POST',
-            body: new FormData(form),
             headers: {
-                'Accept': 'application/json'
+                'Content-Type': 'application/json',
             },
+            body: JSON.stringify(formData),
         })
             .then(response => {
                 if (!response.ok) {
